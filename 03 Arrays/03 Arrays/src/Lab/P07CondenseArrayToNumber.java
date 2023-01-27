@@ -24,11 +24,6 @@ public class P07CondenseArrayToNumber {
             }
             counter--;
         }
-
-        if (nubmersArr.length == 1){
-            System.out.printf("%d is already condensed to number", nubmersArr[0]);
-        } else {
-            System.out.println(nubmersArr[0]);
-        }
+        System.out.println(nubmersArr[0]);
     }
 }
