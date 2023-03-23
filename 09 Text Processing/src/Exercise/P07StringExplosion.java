@@ -8,31 +8,33 @@ public class P07StringExplosion {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        char[] characters = scanner.nextLine().toCharArray();
-        List<String> charList = new ArrayList<>();
-        for (Character symbol : characters) {
-            charList.add(String.valueOf(symbol));
-        }
+        char[] sybols = scanner.nextLine().toCharArray();
 
-        for (int i = 0; i < charList.size(); i++) {
-            String currentSymbol = charList.get(i);
-            int strength = 0;
-            if (currentSymbol.equals(">")) {
-                int newStrength = Integer.parseInt(charList.get(i + 1));
+        int allStength = 0;
 
-                for (int j = i + 1; j <= i + newStrength; j++) {
+        for (int i = 0; i < sybols.length; i++) {
+            char current = sybols[i];
 
-                    if (charList.get(j).equals(">")){
-                        newStrength += Integer.parseInt(charList.get(j + 1));
-                        continue;
-                    } else {
-                        charList.remove(j);
-                    }
-                }
-
+            while (allStength > 0 && current != '>'){
+                sybols[i] = '-';
+                allStength = allStength - 1;
+                break;
             }
 
+            if (current != '>'){
+                continue;
+            } else {
+                int strength = Integer.parseInt(String.valueOf(sybols[i + 1])); // 1
+                allStength = allStength + strength;
+            }
         }
+        List<Character> finalString = new ArrayList<>();
+        for (int index = 0; index < sybols.length; index++) {
+            if (sybols[index] != '-'){
+                finalString.add(sybols[index]);
+            }
+        }
+        finalString.forEach(e -> System.out.printf("%s", e));
 
     }
 }
