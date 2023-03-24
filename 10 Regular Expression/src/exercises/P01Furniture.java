@@ -1,0 +1,52 @@
+package exercises;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class P01Furniture {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+
+        String regex = ">>(?<fur>[A-Z]+[a-z]*\\d*)<<(?<price>\\d+\\.?\\d*)!(?<quantity>\\d+)";
+        //String regex = ">>(?<fur>[A-Z]+[a-z]*\\d*)<<(?<fprice>\\d{3})(?<sprice>\\.?\\d*)!(?<quantity>\\d+)";
+        //String regex = ">>(?<fur>[A-Za-z]+)<<(?<price>[0-9]+\\.?[0-9]*)!(?<quantity>[0-9]+)";
+
+        Pattern pattern = Pattern.compile(regex);
+
+
+        List<String> furnitureList = new ArrayList<>();
+
+        double finalPrice = 0;
+
+        while (!input.equals("Purchase")) {
+            Matcher matcher = pattern.matcher(input);
+            if (matcher.find()) {
+                //>>Sofa<<312.23!3
+                String furniture = matcher.group("fur");
+                //String fPrice = matcher.group("fprice");
+                //String sPrice = matcher.group("sprice");
+                //String totalPrice = fPrice + sPrice;
+                double price = Double.parseDouble(matcher.group("price"));
+                //double price = Double.parseDouble(totalPrice);
+                int quantity = Integer.parseInt(matcher.group("quantity"));
+
+                double spend = price * quantity;
+                finalPrice = finalPrice + spend;
+
+                furnitureList.add(furniture);
+            }
+
+            input = scanner.nextLine();
+        }
+        System.out.println("Bought furniture:");
+        for (String fur : furnitureList) {
+            System.out.println(fur);
+        }
+        System.out.printf("Total money spend: %.2f", finalPrice);
+    }
+}
